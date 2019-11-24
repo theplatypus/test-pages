@@ -1,6 +1,16 @@
 # Scott 
 
-Structure Canonization using Ordered-Tree Translation
+Structure Canonization using Ordered-Tree Translation.
+
+Written and developed by : 
+
+- Nicolas BLOYET **([See-d](https://www.see-d.fr/), [IRISA Expression](https://www-expression.irisa.fr/fr/), [LMBA](http://web.univ-ubs.fr/lmba/))**
+- Pierre-François MARTEAU **([IRISA Expression](https://www-expression.irisa.fr/fr/))**
+- Emmanuel FRÉNOD **([See-d](https://www.see-d.fr/), [LMBA](http://web.univ-ubs.fr/lmba/))**
+
+![See-d](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/Seed.png "See-d")
+![IRISAExpression](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/IRISA.png "IRISA (Expression)")
+![LMBA](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/LMBA.png "LMBA")
 
 ## Overview
 
@@ -98,9 +108,6 @@ If you use or fork `scott` in further works, please consider citing the followin
   HAL_VERSION = {v1},
 }
 ```
-
-## Acknowledgments
-
 
 
 ## Licence
