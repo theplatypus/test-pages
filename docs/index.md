@@ -20,7 +20,15 @@ We present below the example of the cafeine molecule, as a graph in which vertic
 
 ### Graph Isomorphism
 
+As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure. 
+
 ### Graph Canonization
+
+The graph canonization is a related problem, consisting in finding for a graph a *canonical representant*, unique for its isomorphism class. Two graphs are isomorphs if and only if their canonical forms are equal.
+
+This problem is at least as difficult as graph isomorphism, as it answers to it explicitly. Actually, it is very often less efficient to find a canonical representative than testing isomorphism between two graphs, as there are some shortcuts leading to an early decision (e.g. not the same number of vertices, not the same degrees, etc.). 
+
+However, once the canonical representant of a graph is computed, it can be stored and re-used, making this method of resolution suitable in (sub-)graph matchings : given a population of graphs for which we previously computed their canonical form, we can tell if a new graph is already present in the collection without testing the candidate against every known graph, considering it is trivial to compare two canonical representants.
 
 ### Key idea
 
