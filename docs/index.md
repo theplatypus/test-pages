@@ -8,9 +8,7 @@ Written and developed by :
 - Pierre-François MARTEAU **([IRISA Expression](https://www-expression.irisa.fr/fr/))**
 - Emmanuel FRÉNOD **([See-d](https://www.see-d.fr/), [LMBA](http://web.univ-ubs.fr/lmba/))**
 
-![See-d](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/Seed.png "See-d")
-![IRISAExpression](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/IRISA.png "IRISA (Expression)")
-![LMBA](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/LMBA.png "LMBA")
+![logos](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/logos.png "Institutions")
 
 ## Overview
 
