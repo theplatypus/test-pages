@@ -12,9 +12,11 @@ Written and developed by :
 
 ## Overview
 
-A graph $G = (V, E)$
-$$ r = h = \sqrt{\frac {1} {2}} = \sqrt{\frac {N} {N+1}} \sqrt{\frac {N+1} {2N}} $$
+A graph G is a graph, defined by a set of vertices V and a set of edges E, which are pairs of vertices. In some cases, both edges and vertices can carry a label (or color) as additional local information.
 
+We present below the example of the cafeine molecule, as a graph in which vertices represent atoms, labelled by chemical element (C, O, N, H, etc.), and the edges represent covalent bonds, labelled following the bond modality (simple, double, triple, etc.).
+
+![cafeine](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/cafeine.png)
 
 ### Graph Isomorphism
 
@@ -117,3 +119,6 @@ If you use or fork `scott` in further works, please consider citing the followin
 The Python source code we provide is available on the [GitHub repo](https://github.com/theplatypus/scott), under the MIT public licence. 
 
 Feel free to improve it.
+
+## References
+
