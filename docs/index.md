@@ -1,8 +1,3 @@
----
-layout: post
-mathjax: true
----
-
 # Scott 
 
 Scott is a software able to compute, for any colored (edge and node) graph, a tree representative of its isomorphism class, that we can derive to a canonical trace (string) or adjacency matrix.
