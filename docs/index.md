@@ -1,37 +1,104 @@
-## Welcome to GitHub Pages
+# Scott 
 
-You can use the [editor on GitHub](https://github.com/theplatypus/test-pages/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Structure Canonization using Ordered-Tree Translation
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Synopsis
 
-### Markdown
+### Graph Isomorphism
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Graph Canonization
 
-```markdown
-Syntax highlighted code block
+### Key idea
 
-# Header 1
-## Header 2
-### Header 3
+## Getting started 
 
-- Bulleted
-- List
+### Python installation
 
-1. Numbered
-2. List
+Simply clone the repo in a local repertory
 
-**Bold** and _Italic_ and `Code` text
+```bash
+# get the code
+git clone https://github.com/theplatypus/scott.git
+cd ./scott
 
-[Link](url) and ![Image](src)
+# install using setuptools
+python3 setup.py install
+```
+### Pypi package
+
+```bash
+pip install <todo>
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Docker
 
-### Jekyll Themes
+To get `scott` in an environment with additional dependencies installed (chemical librabries, jupyter notebokks,etc.), a Docker container is available :
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/theplatypus/test-pages/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```bash
+# Build the image containing all the stuff for a simple standalone install
+docker build -t scott .
+# or,
+docker pull <todo>
 
-### Support or Contact
+# run an interactive shell, where you can import scott in python default interpreter
+docker run --rm -it scott
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# run a jupyter notebook including scott
+docker run -it -p 8888:8888 scott /bin/bash -c "jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+```
+
+## Getting started 
+
+### Canonical traces
+
+```python
+g = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-2.dot")[0]
+h = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-1.dot")[0]
+
+c = st.canonize.to_cgraph(g, candidate_rule="$degree > $label")
+c2 = st.canonize.to_cgraph(h, candidate_rule="$degree > $label")
+
+str(c) == str(c2)
+```
+
+### Canonical Adjacency Matrices
+
+```python
+# Let g and h be two isomorphic graphs
+g = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-2.dot")[0]
+h = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-1.dot")[0]
+
+# if we compare their adjacency matrix, it is very unlikely to get the two exact same matrices,
+# as there is no order on vertices
+g.adjacency_matrix() == h.adjacency_matrix()
+# False
+
+# but if we induce an order based on the representant tree given by scott,
+# there is only one canonical adjacecny matrix
+g.adjacency_matrix(canonic = True) == h.adjacency_matrix(canonic = True)
+# True
+```
+## Citation
+
+If you use or fork `scott` in further works, please consider citing
+
+```
+@inproceedings{bloyet:hal-02314658,
+  TITLE = {{Scott : A method for representing graphs asrooted trees for graph canonization}},
+  AUTHOR = {Bloyet, Nicolas and Marteau, Pierre-Fran{\c c}ois and Frenod, Emmanuel},
+  URL = {https://hal.archives-ouvertes.fr/hal-02314658},
+  BOOKTITLE = {{Complex Networks}},
+  ADDRESS = {Lisbon, Portugal},
+  PUBLISHER = {{Springer}},
+  SERIES = {Studies in Computational Intelligence Series},
+  YEAR = {2019},
+  MONTH = Dec,
+  KEYWORDS = {graph canonization ; graph isomorphism ; graph rewriting ; labeled graph},
+  HAL_ID = {hal-02314658},
+  HAL_VERSION = {v1},
+}
+```
+
+## Source Code
+
+The Python implmentation we provide is available on the [GitHub repo](https://github.com/theplatypus/scott), under a GPL public licence. Feel free to improve it.
