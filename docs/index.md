@@ -1,3 +1,8 @@
+---
+layout: post
+mathjax: true
+---
+
 # Scott 
 
 Scott is a software able to compute, for any colored (edge and node) graph, a tree representative of its isomorphism class, that we can derive to a canonical trace (string) or adjacency matrix.
@@ -12,7 +17,8 @@ Written and developed by :
 
 ## Overview
 
-A graph G = (V, E)
+A graph $G = (V, E)$
+$$ r = h = \sqrt{\frac {1} {2}} = \sqrt{\frac {N} {N+1}} \sqrt{\frac {N+1} {2N}} $$
 
 
 ### Graph Isomorphism
