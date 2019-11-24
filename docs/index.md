@@ -2,7 +2,7 @@
 
 Structure Canonization using Ordered-Tree Translation
 
-## Synopsis
+## Overview
 
 ### Graph Isomorphism
 
@@ -80,7 +80,7 @@ g.adjacency_matrix(canonic = True) == h.adjacency_matrix(canonic = True)
 ```
 ## Citation
 
-If you use or fork `scott` in further works, please consider citing
+If you use or fork `scott` in further works, please consider citing the following :
 
 ```
 @inproceedings{bloyet:hal-02314658,
@@ -99,6 +99,12 @@ If you use or fork `scott` in further works, please consider citing
 }
 ```
 
-## Source Code
+## Acknowledgments
 
-The Python implmentation we provide is available on the [GitHub repo](https://github.com/theplatypus/scott), under a GPL public licence. Feel free to improve it.
+
+
+## Licence
+
+The Python source code we provide is available on the [GitHub repo](https://github.com/theplatypus/scott), under a GPL public licence. 
+
+Feel free to improve it.
