@@ -1,6 +1,6 @@
 # Scott 
 
-Structure Canonization using Ordered-Tree Translation.
+Scott is a software able to compute, for any colored (edge and node) graph, a tree representative of its isomorphism class, that we can derive to a canonical trace (string) or adjacency matrix.
 
 Written and developed by : 
 
@@ -11,6 +11,9 @@ Written and developed by :
 ![logos](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/logos.png "Institutions")
 
 ## Overview
+
+A graph G = (V, E)
+
 
 ### Graph Isomorphism
 
@@ -110,6 +113,6 @@ If you use or fork `scott` in further works, please consider citing the followin
 
 ## Licence
 
-The Python source code we provide is available on the [GitHub repo](https://github.com/theplatypus/scott), under a GPL public licence. 
+The Python source code we provide is available on the [GitHub repo](https://github.com/theplatypus/scott), under the MIT public licence. 
 
 Feel free to improve it.
