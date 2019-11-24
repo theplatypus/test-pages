@@ -1,1 +1,5 @@
 theme: jekyll-theme-minimal
+title: S.c.o.t.t.
+description: Structure Canonisation using Ordered-Tree Translation
+logo: https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/scott.png
+show_downloads: "true" 
