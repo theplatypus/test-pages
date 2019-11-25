@@ -22,9 +22,9 @@ We present below the example of the cafeine molecule, as a graph in which vertic
 
 As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure. 
 
-Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges. Below the Wikipedia example.
+Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges. Below the [Wikipedia](https://en.wikipedia.org/wiki/Graph_isomorphism) example, where you will find more informations about the problem.
 
-G ≃ H ⟺ ∃ f : V<sub>G</sub> ⟶ V<sub>H</sub>, ∀ (v<sub>1</sub>, v<sub>2</sub>) ∈ E<sub>G</sub>, (f(v<sub>1</sub>), f(v<sub>2</sub>)) ∈ E<sub>H</sub>
+<!-- G ≃ H ⟺ ∃ f : V<sub>G</sub> ⟶ V<sub>H</sub>, ∀ (v<sub>1</sub>, v<sub>2</sub>) ∈ E<sub>G</sub>, (f(v<sub>1</sub>), f(v<sub>2</sub>)) ∈ E<sub>H</sub> -->
 
 ![wikipedia example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/isomorphism.png)
 
@@ -44,16 +44,31 @@ However, once the canonical representant of a graph is computed, it can be store
 
 ### State of Art
 
-Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` or `conauto`. These algorithms are highly efficient, especially nauty and bliss (benchmark)
-Unfortunately, none of them is able to natively deal with labelled edges. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
+Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` for canonization or `conauto`, `saucy` for isomorphism testing. These algorithms are highly efficient, bu unfortunately, none of them is able to natively deal with labelled edges otherwise than rewriting the graph in an label-unlabelled way, increasing the problem size. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
+
+Another approach is `gspan`, which can handle both edge and vertice labelling, but as it is based on finding a lexicographic minimal description of a graph among the enumeration of them, it is not suitable for whole graphs as long as their size grow, explaining why it is mainly used for (small) subgraphs mining.
 
 ### Key idea
 
-We propose here an algorithm based on graph rewriting instead of equitable coloration. By applying successive re-writings, aiming to avoid all form of cycle without any loss of information, the graph converges to a tree. Those graphs editions are applied following an order derived on the graph itself, ensuring the tree obtained is a canonical representant of the isomorphism class of the graph.
+We propose here an algorithm based on graph rewriting. Scott execution follows three main steps, illustrated below.
+
+ 1. Levelling of vertices, according to an elected root
+ 2. Re-writing of cycles without information loss
+ 3. Canonical encoding of the tree obtained
+
+![Scott example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/steps.png)
+
+The root identity can be obvious is the best case (combination of label, degree, degree of neighboorhood-<1:n>, etc.), but in the worst case where there are several candidates, they are computed, the minimal trace obtained being unique for an isomorphism class. 
+
+By applying successive re-writings, aiming to avoid all form of cycle without any loss of information, the graph converges to a tree. Those graphs editions are applied following an order derived on the graph itself, ensuring the tree obtained is a canonical representant of the isomorphism class of the graph. It can be proved that a set of three rewritings is sufficient to transform a levelled-graph into a unique tree.
+
+![Rewritings](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/bounds.png)
 
 As it is possible to recursively define an order relation on a tree (known property), we can use this canonical tree to obtain some compacts isomorphism-invariants representation of the graph, such as trace (string) or standardized adjacency matrix.
 
-![Scott example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/steps.png)
+For more details about the algorithm, please refer to the paper or the Python implementation we propose.
+
+---
 
 ## Getting started 
 
