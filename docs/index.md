@@ -22,13 +22,13 @@ We present below the example of the cafeine molecule, as a graph in which vertic
 
 As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure. 
 
-Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges.
+Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges. Below the Wikipedia example.
 
 G ≃ H ⟺ ∃ f : V<sub>G</sub> ⟶ V<sub>H</sub>, ∀ (v<sub>1</sub>, v<sub>2</sub>) ∈ E<sub>G</sub>, (f(v<sub>1</sub>), f(v<sub>2</sub>)) ∈ E<sub>H</sub>
 
-Isomorphism is an equivalence relation, and naturally leads to the definition of *isomorphism class*, a set of graphs sharing an isomorphism with each other, and so all representing the same structure.
-
 ![wikipedia example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/isomorphism.png)
+
+Isomorphism is an equivalence relation, and naturally leads to the definition of *isomorphism class*, a set of graphs sharing an isomorphism with each other, and so all representing the same structure.
 
 While determining (or not) if two graphs are isomophics seems trivial for small graphs, it is actually a problem which remains unresolved in polynomial time in the general case (polynomial heuristics do exist for restricted class of graphs). There is still uncertaincy about this problem theoretical complexity, despite some very recent works seem to prove its appartenance to P (Polynomial).
 
@@ -42,7 +42,18 @@ This problem is at least as difficult as graph isomorphism, as it answers to it 
 
 However, once the canonical representant of a graph is computed, it can be stored and re-used, making this method of resolution suitable in (sub-)graph matchings : given a population of graphs for which we previously computed their canonical form, we can tell if a new graph is already present in the collection without testing the candidate against every known graph, considering it is trivial to compare two canonical representants.
 
+### State of Art
+
+Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` or `conauto`. These algorithms are highly efficient, especially nauty and bliss (benchmark)
+Unfortunately, none of them is able to natively deal with labelled edges. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
+
 ### Key idea
+
+We propose here an algorithm based on graph rewriting instead of equitable coloration. By applying successive re-writings, aiming to avoid all form of cycle without any loss of information, the graph converges to a tree. Those graphs editions are applied following an order derived on the graph itself, ensuring the tree obtained is a canonical representant of the isomorphism class of the graph.
+
+As it is possible to recursively define an order relation on a tree (known property), we can use this canonical tree to obtain some compacts isomorphism-invariants representation of the graph, such as trace (string) or standardized adjacency matrix.
+
+![Scott example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/steps.png)
 
 ## Getting started 
 
