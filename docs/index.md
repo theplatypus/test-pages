@@ -22,9 +22,21 @@ We present below the example of the cafeine molecule, as a graph in which vertic
 
 As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure. 
 
+Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges.
+
+G ≃ H ⟺ ∃ f : V<sub>G</sub> ⟶ V<sub>H</sub>, ∀ (v<sub>1</sub>, v<sub>2</sub>) ∈ E<sub>G</sub>, (f(v<sub>1</sub>), f(v<sub>2</sub>)) ∈ E<sub>H</sub>
+
+Isomorphism is an equivalence relation, and naturally leads to the definition of *isomorphism class*, a set of graphs sharing an isomorphism with each other, and so all representing the same structure.
+
+![wikipedia example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/isomorphism.png)
+
+While determining (or not) if two graphs are isomophics seems trivial for small graphs, it is actually a problem which remains unresolved in polynomial time in the general case (polynomial heuristics do exist for restricted class of graphs). There is still uncertaincy about this problem theoretical complexity, despite some very recent works seem to prove its appartenance to P (Polynomial).
+
+There are a lot of practical applications of this problem, as in many graph related problem, we want to consider graphs belonging to the same isomorphism class as equals.
+
 ### Graph Canonization
 
-The graph canonization is a related problem, consisting in finding for a graph a *canonical representant*, unique for its isomorphism class. Two graphs are isomorphs if and only if their canonical forms are equal.
+The graph canonization is a related problem, consisting in finding for a graph a *canonical representant*, unique for its isomorphism class. Two graphs are isomorphics if and only if their canonical forms are equal.
 
 This problem is at least as difficult as graph isomorphism, as it answers to it explicitly. Actually, it is very often less efficient to find a canonical representative than testing isomorphism between two graphs, as there are some shortcuts leading to an early decision (e.g. not the same number of vertices, not the same degrees, etc.). 
 
@@ -43,9 +55,16 @@ Simply clone the repo in a local repertory
 git clone https://github.com/theplatypus/scott.git
 cd ./scott
 
-# install using setuptools
+# (optionnal) install using setuptools
 python3 setup.py install
 ```
+
+Then you should be able to import `scott` package from python :
+
+```python
+import scott as st
+```
+
 ### Pypi package
 
 ```bash
