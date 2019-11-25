@@ -42,7 +42,7 @@ We present below the example of the cafeine molecule, as a graph in which vertic
 
 As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure. 
 
-Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges. Below the [Wikipedia](https://en.wikipedia.org/wiki/Graph_isomorphism) example, where you will find more informations about the problem.
+Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges. Below the [Wikipedia](https://en.wikipedia.org/wiki/Graph_isomorphism) example, where you will find more informations about the [problem](https://en.wikipedia.org/wiki/Graph_isomorphism_problem).
 
 <!-- G ≃ H ⟺ ∃ f : V<sub>G</sub> ⟶ V<sub>H</sub>, ∀ (v<sub>1</sub>, v<sub>2</sub>) ∈ E<sub>G</sub>, (f(v<sub>1</sub>), f(v<sub>2</sub>)) ∈ E<sub>H</sub> -->
 
