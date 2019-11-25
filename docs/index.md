@@ -10,6 +10,26 @@ Written and developed by :
 
 ![logos](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/logos/logos.png "Institutions")
 
+# Table of contents
+
+- [Overview](#overview)
+  * [Graph Isomorphism](#graph-isomorphism)
+  * [Graph Canonization](#graph-canonization)
+  * [State of Art](#state-of-art)
+  * [Key Idea](#key-idea)
+- [Getting started](#getting-started)
+  * [From source code](#from-source-code)
+  * [From Pypi](#from-pypi)
+  * [From Docker](#from-docker)
+- [Usage](#usage)
+  * [Import Graphs](#import-graphs)
+  * [Canonical traces](#from-source-code)
+  * [Canonical Adjacency Matrices](#canonical-adjacency-matrices)
+- [Citation](#citation)
+- [Licence](#licence)
+- [References](#references)
+
+
 ## Overview
 
 A graph G is a graph, defined by a set of vertices V and a set of edges E, which are pairs of vertices. In some cases, both edges and vertices can carry a label (or color) as additional local information.
@@ -44,7 +64,7 @@ However, once the canonical representant of a graph is computed, it can be store
 
 ### State of Art
 
-Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` for canonization or `conauto`, `saucy` for isomorphism testing. These algorithms are highly efficient, bu unfortunately, none of them is able to natively deal with labelled edges otherwise than rewriting the graph in an label-unlabelled way, increasing the problem size. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
+Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` for canonization or `conauto`, `saucy` for isomorphism testing. These algorithms are highly efficient, but unfortunately, none of them is able to natively deal with labelled edges otherwise than rewriting the graph in an edge-unlabelled way, increasing the problem size. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
 
 Another approach is `gspan`, which can handle both edge and vertice labelling, but as it is based on finding a lexicographic minimal description of a graph among the enumeration of them, it is not suitable for whole graphs as long as their size grow, explaining why it is mainly used for (small) subgraphs mining.
 
@@ -72,7 +92,7 @@ For more details about the algorithm, please refer to the paper or the Python im
 
 ## Getting started 
 
-### Python installation
+### From source code
 
 Simply clone the repo in a local repertory
 
@@ -91,13 +111,13 @@ Then you should be able to import `scott` package from python :
 import scott as st
 ```
 
-### Pypi package
+### From Pypi
 
 ```bash
 pip install <todo>
 ```
 
-### Docker
+### From Docker
 
 To get `scott` in an environment with additional dependencies installed (chemical librabries, jupyter notebokks,etc.), a Docker container is available :
 
@@ -114,7 +134,15 @@ docker run --rm -it scott
 docker run -it -p 8888:8888 scott /bin/bash -c "jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
-## Getting started 
+## Usage
+
+### Import Graphs
+
+```python
+import scott as st
+
+g = ... todo
+```
 
 ### Canonical traces
 
