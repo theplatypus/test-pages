@@ -36,7 +36,7 @@ A graph G is a graph, defined by a set of vertices V and a set of edges E, which
 
 We present below the example of the cafeine molecule, as a graph in which vertices represent atoms, labelled by chemical element (C, O, N, H, etc.), and the edges represent covalent bonds, labelled following the bond modality (simple, double, triple, etc.).
 
-![cafeine](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/cafeine.png)
+![cafeine](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/cafeine.svg?sanitize=true)
 
 ### Graph Isomorphism
 
@@ -76,13 +76,17 @@ We propose here an algorithm based on graph rewriting. Scott execution follows t
  2. Re-writing of cycles without information loss
  3. Canonical encoding of the tree obtained
 
-![Scott example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/steps.png)
+![Scott example](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/steps.svg?sanitize=true)
 
 The root identity can be obvious is the best case (combination of label, degree, degree of neighboorhood-<1:n>, etc.), but in the worst case where there are several candidates, they are computed, the minimal trace obtained being unique for an isomorphism class. 
 
-By applying successive re-writings, aiming to avoid all form of cycle without any loss of information, the graph converges to a tree. Those graphs editions are applied following an order derived on the graph itself, ensuring the tree obtained is a canonical representant of the isomorphism class of the graph. It can be proved that a set of three rewritings is sufficient to transform a levelled-graph into a unique tree.
+It can be proved that the following set of three rewritings is sufficient to transform a levelled-graph into a unique tree.
 
-![Rewritings](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/bounds.png)
+![Rewritings](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/bounds.svg?sanitize=true)
+
+By applying successive re-writings, aiming to avoid all form of cycle without any loss of information, the graph converges to a tree. Those graphs editions are applied following an order derived on the graph itself, ensuring the tree obtained is a canonical representant of the isomorphism class of the graph.
+
+![Substeps](https://raw.githubusercontent.com/theplatypus/test-pages/master/docs/img/substeps.svg?sanitize=true)
 
 As it is possible to recursively define an order relation on a tree (known property), we can use this canonical tree to obtain some compacts isomorphism-invariants representation of the graph, such as trace (string) or standardized adjacency matrix.
 
