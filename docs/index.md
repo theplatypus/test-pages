@@ -158,6 +158,45 @@ str(c) == str(c2)
 
 ### Canonical Adjacency Matrices
 
+On a graph `G` of `N` vertices, an adjacency matrix `A` is a `N*N` array describing the link between two vertices.
+If `G` is non-directed, then `A` is symetric. If edges are not labelled, then `A` is binary.
+
+```python
+import numpy as np
+
+np.array(g.adjacency_matrix(canonic = True))
+# array([
+#       [0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1],
+#       [1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+#       [0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1],
+#       [0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0],
+#       [1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+#       [1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+#       [1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+#       [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0],
+#       [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1],
+#       [1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0],
+#       [0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0],
+#       [0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1],
+#       [1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1],
+#       [1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1],
+#       [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0],
+#       [1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1],
+#       [1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+#       [0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1],
+#       [0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0],
+#       [1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0]])
+```
+
+We typically use as input in a Graph Neural Network the 3-tuple :
+   - `A`, the binary adjacency matrix
+   - `X`, a `V*D1` matrix mapping each vertice with a vector of `D1` elements (color, etc.)
+   - `E`, a `V*V*D2` matrix mapping each edge with a vector of `D2` elements
+   
+We can merge `A` and `E` to get an *adjacency tensor* of shape `N*N*D2`, depending of the GNN implementation used. Note that if edges labels are qualitative, you should always use a one-hot encoding, and so a `E` matrix. The only case where a "flat" `A` is acceptable is when edges labels are purely quantitative (or inexistent). 
+
+In any case, `Scott` can help to get a standardized adjacency matrix, such as isomophic graph will have the exact same adjacency matrices, which can help learning process by bringing the "same elements towards the same neurons".
+
 ```python
 # Let g and h be two isomorphic graphs
 g = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-2.dot")[0]
@@ -173,9 +212,12 @@ g.adjacency_matrix() == h.adjacency_matrix()
 g.adjacency_matrix(canonic = True) == h.adjacency_matrix(canonic = True)
 # True
 ```
+
+
+
 ## Citation
 
-If you use or fork `scott` in further works, please consider citing the following :
+If you use or fork `scott` in further works, please cite the following :
 
 ```
 @inproceedings{bloyet:hal-02314658,
@@ -193,7 +235,6 @@ If you use or fork `scott` in further works, please consider citing the followin
   HAL_VERSION = {v1},
 }
 ```
-
 
 ## Licence
 
