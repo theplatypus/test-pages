@@ -1,8 +1,8 @@
 # Scott 
 
-**Scott is a software able to compute, for any colored (edge and node) graph, a canonical tree representative of its isomorphism class, that we can derive to a canonical trace (string) or adjacency matrix.**
+Scott is a software able to compute, for **any labelled (edge and node) graph**, a **canonical tree representative of its isomorphism class**, that we can derive to a **canonical trace** (string) or **adjacency matrix**.
 
-Written and developed by : 
+Written and developed by :
 
 - Nicolas BLOYET **([See-d](https://www.see-d.fr/), [IRISA Expression](https://www-expression.irisa.fr/fr/), [LMBA](http://web.univ-ubs.fr/lmba/))**
 - Pierre-François MARTEAU **([IRISA Expression](https://www-expression.irisa.fr/fr/))**
