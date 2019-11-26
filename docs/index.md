@@ -1,6 +1,6 @@
 # Scott 
 
-Scott is a software able to compute, for any colored (edge and node) graph, a tree representative of its isomorphism class, that we can derive to a canonical trace (string) or adjacency matrix.
+**Scott is a software able to compute, for any colored (edge and node) graph, a canonical tree representative of its isomorphism class, that we can derive to a canonical trace (string) or adjacency matrix.**
 
 Written and developed by : 
 
@@ -203,7 +203,7 @@ We typically use as input in a Graph Neural Network the 3-tuple :
    - `X`, a `V*D1` matrix mapping each vertice with a vector of `D1` elements (color, etc.)
    - `E`, a `V*V*D2` matrix mapping each edge with a vector of `D2` elements
    
-We can merge `A` and `E` to get an *adjacency tensor* of shape `N*N*D2`, depending of the GNN implementation used. Note that if edges labels are qualitative, you should always use a one-hot encoding, and so a `E` matrix. The only case where a "flat" `A` is acceptable is when edges labels are purely quantitative (or inexistent). 
+We can merge `A` and `E` to get an *adjacency tensor* of shape `N*N*D2`, depending of the GNN implementation used. Note that if edges labels are qualitative, you should always use a one-hot encoding, and so a `E` matrix. The only case where a "flat" `A` is acceptable is when edges labels are purely quantitative (or if edges are not labelled). 
 
 In any case, `Scott` can help to get a standardized adjacency matrix, such as isomophic graph will have the exact same adjacency matrices, which can help learning process by bringing the "same elements towards the same neurons".
 
