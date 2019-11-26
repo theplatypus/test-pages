@@ -168,7 +168,7 @@ If `G` is non-directed, then `A` is symetric. If edges are not labelled, then `A
 ```python
 import numpy as np
 
-np.array(g.adjacency_matrix(canonic = True))
+np.array(g.adjacency_matrix())
 # array([
 #       [0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1],
 #       [1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1],
