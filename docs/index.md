@@ -40,7 +40,7 @@ We present below the example of the cafeine molecule, as a graph in which vertic
 
 ### Graph Isomorphism
 
-As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure. 
+As long as we describe a graph by an enumeration of its elements, there are several possible descriptions of the same structure.
 
 Let G and H be two graphs. They are said to be isomorphics if there exists a bijection between their respective vertices sets which preserves edges. Below the [Wikipedia](https://en.wikipedia.org/wiki/Graph_isomorphism) example, where you will find more informations about the [problem](https://en.wikipedia.org/wiki/Graph_isomorphism_problem).
 
@@ -50,23 +50,25 @@ Let G and H be two graphs. They are said to be isomorphics if there exists a bij
 
 Isomorphism is an equivalence relation, and naturally leads to the definition of *isomorphism class*, a set of graphs sharing an isomorphism with each other, and so all representing the same structure.
 
-While determining (or not) if two graphs are isomophics seems trivial for small graphs, it is actually a problem which remains unresolved in polynomial time in the general case (polynomial heuristics do exist for restricted class of graphs). There is still uncertaincy about this problem theoretical complexity, despite some very recent works seem to prove its appartenance to P (Polynomial).
+While determining (or not) if two graphs are isomophics seems trivial for small graphs, it is actually a problem which remains unresolved in polynomial time in the general case (polynomial heuristics do exist for restricted class of graphs). There is still uncertaincy about this problem theoretical complexity, despite some very recent works [[x](https://arxiv.org/abs/1512.03547)] seem to prove its appartenance to P (Polynomial).
 
-There are a lot of practical applications of this problem, as in many graph related problem, we want to consider graphs belonging to the same isomorphism class as equals.
+There are a lot of practical applications of this problem [[x](https://en.wikipedia.org/wiki/Graph_isomorphism_problem#Applications), [x](https://math.stackexchange.com/a/120482/606995)], as in many graph related problem, we want to consider graphs belonging to the same isomorphism class as equals.
 
 ### Graph Canonization
 
-The graph canonization is a related problem, consisting in finding for a graph a *canonical representant*, unique for its isomorphism class. Two graphs are isomorphics if and only if their canonical forms are equal.
+The [graph canonization](https://en.wikipedia.org/wiki/Graph_canonization) is a related problem, consisting in finding for a graph a *canonical representant*, unique for its isomorphism class. Two graphs are isomorphics if and only if their canonical forms are equal.
 
-This problem is at least as difficult as graph isomorphism, as it answers to it explicitly. Actually, it is very often less efficient to find a canonical representative than testing isomorphism between two graphs, as there are some shortcuts leading to an early decision (e.g. not the same number of vertices, not the same degrees, etc.). 
+This problem is at least as difficult as graph isomorphism, as it answers to it explicitly. Actually, it is very often less efficient to find a canonical representative than testing isomorphism between two graphs, as there are some shortcuts leading to an early decision in the second case (e.g. not the same number of edges/vertices, not the same degrees, etc.). 
 
 However, once the canonical representant of a graph is computed, it can be stored and re-used, making this method of resolution suitable in (sub-)graph matchings : given a population of graphs for which we previously computed their canonical form, we can tell if a new graph is already present in the collection without testing the candidate against every known graph, considering it is trivial to compare two canonical representants.
 
 ### State of Art
 
-Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` for canonization or `conauto`, `saucy` for isomorphism testing. These algorithms are highly efficient, but unfortunately, none of them is able to natively deal with labelled edges otherwise than rewriting the graph in an edge-unlabelled way, increasing the problem size. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
+Several algorithms already exist, the most used being `nauty`, `bliss`, `traces` for canonization or `conauto`, `saucy` for isomorphism testing. These algorithms are highly efficient, but unfortunately, among algorithms able to give a canonical form, none of them is able to natively deal with labelled edges otherwise than rewriting the graph in an edge-unlabelled way, increasing the problem size. Moreover, those algorithms are sequential, and do not take advantage of multi-threaded hardware.
 
 Another approach is `gspan`, which can handle both edge and vertice labelling, but as it is based on finding a lexicographic minimal description of a graph among the enumeration of them, it is not suitable for whole graphs as long as their size grow, explaining why it is mainly used for (small) subgraphs mining.
+
+> We adress through `Scott` the problem of **canonizing** each **edge-labelled**, **vertice-labelled** graph.
 
 ### Key idea
 
