@@ -230,7 +230,6 @@ cafeine_without_H = compounds[0]
 print(cafeine_without_H)
 
 # Parse a SMILES string (RDKit required)
-
 smile = st.parse.parse_smiles('CCOCOCC=CCONC')
 
 # we can iterate over graph vertices
@@ -238,11 +237,9 @@ for id_node in smile.V :
 	print("Node #%s : %s" % (str(id_node), str(smile.V[id_node].label)))
 
 # Parse a .dot file
-
 cfi1 = st.parse.from_dot(file_path = './data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0016-04-1.dot')[0]
 
 # Parse a .dimacs file
-
 cfi2 = st.parse.from_dimacs(file_path = './data/isotest/cfi-rigid-t2/cfi-rigid-t2-0016-04-1')[0]
 ```
 
