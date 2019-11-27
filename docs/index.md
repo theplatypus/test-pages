@@ -125,45 +125,172 @@ pip install <todo>
 
 ### From Docker
 
-To get `scott` in an environment with additional dependencies installed (chemical librabries, jupyter notebokks,etc.), a Docker container is available :
+To get `scott` in an environment with additional dependencies installed (chemical librabries, jupyter notebooks,etc.), a Docker container is available :
 
 ```bash
 # Build the image containing all the stuff for a simple standalone install
 docker build -t scott .
-# or,
+# or pull it
 docker pull <todo>
 
 # run an interactive shell, where you can import scott in python default interpreter
 docker run --rm -it scott
 
-# run a jupyter notebook including scott
+# or run a jupyter notebook including scott
 docker run -it -p 8888:8888 scott /bin/bash -c "jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
+For specific uses, you have access to alternative `Dockerfiles` in `/dockerfiles`, each of them being a tag that you can also pull.
+
+#### Pypy 
+
+An image including the [Pypy](https://pypy.org/) interpreter, a high-performance alternative to the classic CPython. Use it with `ipython` or launch a jupyter server.
+
+```bash
+docker build -t scott:pypy -f dockerfiles/pypy/Dockerfile .
+docker run -it --rm -p 8888:8888 scott:pypy
+
+# > ipython 
+# > jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root
+```
+
+#### Debian 
+
+A debian-based image, if you are not an Anaconda supporter.
+
+```bash
+docker build -t scott:debian -f dockerfiles/debian/Dockerfile .
+docker run -it --rm -p 8888:8888 scott:debian
+
+# > ipython 
+# > jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root
+```
+
+#### PySpark
+
+An image designed to run inside a [Spark](https://spark.apache.org/) cluster. 
+
+```bash
+docker build -t scott:spark -f dockerfiles/pyspark/Dockerfile .
+
+docker run -it -v $(pwd):/home/scott scott:spark pyspark --master local[*]
+```
+
+---
+
 ## Usage
 
-### Import Graphs
+### Build a Graph
+
+You can describe a `Graph` algorithmically.
 
 ```python
 import scott as st
 
-g = ... todo
+# describe a graph from scratch
+
+graph = st.structs.graph.Graph()
+n1 = st.structs.node.Node("1", "C")
+n2 = st.structs.node.Node("2", "O")
+n3 = st.structs.node.Node("3", "H")	
+n4 = st.structs.node.Node("4", "H")
+
+e1 = st.structs.edge.Edge("1", n1, n2, modality=2)
+e2 = st.structs.edge.Edge("2", n1, n3)
+e3 = st.structs.edge.Edge("3", n1, n4)
+
+graph.add_node(n1)
+graph.add_nodes([n2, n3, n4])
+graph.add_edge(e1)
+graph.add_edge(e2)
+graph.add_edge(e3)
+
+print(n1)
+print(e1)
+print(graph)
+```
+### Import Graphs
+
+Scott is also able to parse a few graph formats files. Note that a parsing function always returns a list, even if there is one molecule in the file.
+
+```python
+# Parse a .sdf file (chemical file standard) :
+
+# from blob
+CAFEINE_URL = "https://drive.google.com/uc?id=1lXeFVGS77oK_qL3NESDV_UjJknPyiICx"
+file_content = urlopen(CAFEINE_URL).read().decode()
+
+compounds = st.parse.from_sdf(file_content, ignore_hydrogens = False)
+cafeine = compounds[0]
+print(cafeine)
+
+# from file path - note we ignore hydrogens this time
+compounds = st.parse.from_sdf(file_path='./data/molecule/cafeine.sdf', ignore_hydrogens = True)
+cafeine_without_H = compounds[0]
+print(cafeine_without_H)
+
+# Parse a SMILES string (RDKit required)
+
+smile = st.parse.parse_smiles('CCOCOCC=CCONC')
+
+# we can iterate over graph vertices
+for id_node in smile.V :
+	print("Node #%s : %s" % (str(id_node), str(smile.V[id_node].label)))
+
+# Parse a .dot file
+
+cfi1 = st.parse.from_dot(file_path = './data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0016-04-1.dot')[0]
+
+# Parse a .dimacs file
+
+cfi2 = st.parse.from_dimacs(file_path = './data/isotest/cfi-rigid-t2/cfi-rigid-t2-0016-04-1')[0]
 ```
 
 ### Canonical traces
 
 A canonical trace is a string representation of the tree representative of an isomorphism class. 
 
+```python
+simple = st.parse.from_pubchem_xml(file_path= './data/molecule/simple.xml')[0]
+
+# we get a CGraph object from the function `st.canonize.to_cgraph`...
+simple_cgraph = st.canonize.to_cgraph(simple)
+
+# ...that we can print directly or convert to string
+simple_canon = str(simple_cgraph)
+
+assert simple_canon == '(H:1, H:1, (H:1, H:1, ((((C:1).#2{$1}:2)C:2)C:2, ((((C:1).#2{$1}:2)C:2)C:1).#2{$2}:1)C:1)C:1, (O:2, (((((C:1).#2{$1}:2)C:2)C:1).#2{$2}:1)O:1)C:1)C'
+```
+
 If you only need a [hash function](https://en.wikipedia.org/wiki/Hash_function) for graphs, you can apply a string hash function (`md5`, `sha`, etc.) to the trace obtained.
 
 ```python
-g = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-2.dot")[0]
-h = st.parse.from_dot(file_path="./data/isotest/cfi-rigid-t2-dot/cfi-rigid-t2-0020-02-1.dot")[0]
+import hashlib 
 
-c = st.canonize.to_cgraph(g, candidate_rule="$degree > $label")
-c2 = st.canonize.to_cgraph(h, candidate_rule="$degree > $label")
+assert hashlib.sha224(simple_canon.encode()).hexdigest() == 'a90f308ea4c2cd8a1003a32507b4769f5ef5f31bb4f2602856200982'
+```
 
-str(c) == str(c2)
+```python
+G = st.parse.from_dimacs(file_path = './data/isotest/cfi-rigid-t2/cfi-rigid-t2-0020-01-1')[0]
+H = st.parse.from_dimacs(file_path = './data/isotest/cfi-rigid-t2/cfi-rigid-t2-0020-01-2')[0]
+
+E = st.parse.from_dimacs(file_path = './data/isotest/cfi-rigid-t2/cfi-rigid-t2-0020-02-2')[0]
+F = st.parse.from_dimacs(file_path = './data/isotest/cfi-rigid-t2/cfi-rigid-t2-0020-02-2')[0]
+
+# Can take few seconds
+Gc = st.canonize.to_cgraph(G)
+Hc = st.canonize.to_cgraph(H)
+Ec = st.canonize.to_cgraph(E)
+Fc = st.canonize.to_cgraph(F)
+
+# So, following the nomenclature G == H and E == F, ...
+
+assert str(Gc) == str(Hc)
+assert str(Ec) == str(Fc)
+
+# ... but G != E/F and H != E/F 
+assert str(Gc) != str(Ec)
+assert str(Hc) != str(Fc)
 ```
 
 ### Canonical Adjacency Matrices
