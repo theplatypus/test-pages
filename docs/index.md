@@ -354,19 +354,13 @@ g.adjacency_matrix(canonic = True) == h.adjacency_matrix(canonic = True)
 If you use or fork `scott` in further works, please cite the following :
 
 ```
-@inproceedings{bloyet:hal-02314658,
-  TITLE = {{Scott : A method for representing graphs asrooted trees for graph canonization}},
-  AUTHOR = {Bloyet, Nicolas and Marteau, Pierre-Fran{\c c}ois and Frenod, Emmanuel},
-  URL = {https://hal.archives-ouvertes.fr/hal-02314658},
-  BOOKTITLE = {{Complex Networks}},
-  ADDRESS = {Lisbon, Portugal},
-  PUBLISHER = {{Springer}},
-  SERIES = {Studies in Computational Intelligence Series},
-  YEAR = {2019},
-  MONTH = Dec,
-  KEYWORDS = {graph canonization ; graph isomorphism ; graph rewriting ; labeled graph},
-  HAL_ID = {hal-02314658},
-  HAL_VERSION = {v1},
+@inproceedings{bloyet2019scott,
+  title={Scott: A method for representing graphs as rooted trees for graph canonization},
+  author={Bloyet, Nicolas and Marteau, Pierre-Fran{\c{c}}ois and Frenod, Emmanuel},
+  booktitle={International Conference on Complex Networks and Their Applications},
+  pages={578--590},
+  year={2019},
+  organization={Springer}
 }
 ```
 
